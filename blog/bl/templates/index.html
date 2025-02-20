@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <h1>Combined Lists</h1>
+    <ul>
+        {% for name, path in dirNamesAndPaths %}
+            <a href = {{ path }}> {{ name }} </a> <br>
+        {% endfor %}
+    </ul>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+  <h1> {{ Title }} </h1>
+
+  <ul>
+    {% for i in blogFolders %}
+    <li><a href={{ currUrl }}/{{ i }}> {{i}} </a></li>
+    {% endfor %}
+
+    {% for i in blogFiles %}
+    <li><a href={{ currUrl }}/{{ i }}> {{i}} </a></li>
+    {% endfor %}
+  </ul>
+</body>
+
+</html>

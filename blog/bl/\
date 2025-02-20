@@ -1,0 +1,45 @@
+from django.shortcuts import render
+from .models import MarkdownFile
+
+from os import listdir
+from os import path
+
+import urllib.parse
+
+
+def members(request):
+    # iterate over file paths and display them as a link.
+    # get all files from /home/demirel/new Vaulr
+    vaultPath = r"/home/demirel/New Vault"
+
+    dirNamesAndPaths = getDirNameAndPath(vaultPath)
+
+    MarkdownFile.create()
+    return render(
+        request, 'index.html', {'dirNamesAndPaths': dirNamesAndPaths})
+
+
+def getDirNameAndPath(vaultPath):
+    dirNames = listdir(vaultPath)
+
+    urlPaths = []  # both contain path to markdown
+
+    for dirName in dirNames:
+        path = vaultPath + '/' + dirName
+        linkUrl = urllib.parse.quote(path)
+
+        urlPaths.append(linkUrl)
+
+    return zip(dirNames, urlPaths)
+
+
+def createMarkdownModel(vaultPath):
+    dirNames = listdir(vaultPath)
+
+    for fName in dirNames:
+        if (path.is_dir(vaultPath + fName)):
+            createMarkdownModel(vaultPath + fName)
+            continue
+
+        MarkdownFile.create(
+            fName, "home/demirel/myworld/blog/bl/templates/htmlDocs/" + fName)
